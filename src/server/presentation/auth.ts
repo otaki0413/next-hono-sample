@@ -1,0 +1,18 @@
+import { Hono } from "hono";
+
+import { auth } from "~/lib/auth";
+
+/**
+ * BetterAuth認証ルーター
+ * 公式ドキュメント準拠: https://www.better-auth.com/docs/integrations/hono
+ *
+ * すべての認証リクエスト (POST/GET) をBetterAuthハンドラに転送
+ * - /auth/sign-in/email
+ * - /auth/sign-up/email
+ * - /auth/sign-out
+ * - /auth/session
+ * - /auth/callback/microsoft
+ */
+export const authRouter = new Hono().on(["POST", "GET"], "/*", (c) =>
+  auth.handler(c.req.raw)
+);
