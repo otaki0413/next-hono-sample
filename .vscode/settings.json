@@ -23,8 +23,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "cSpell.words": [
-    "turbopack",
-    "ultracite"
-  ]
+  "cSpell.words": ["turbopack", "ultracite"],
+  "biome.lsp.bin": "./node_modules/.bin/biome"
 }

@@ -44,4 +44,4 @@ next-env.d.ts
 .serena
 
 # prisma
-/src/app/generated/prisma
+/src/generated/prisma
