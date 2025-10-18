@@ -11,8 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-// hookに引っかかるテスト
-import { signIn } from "~/lib/auth-client";
+import { authClient } from "~/lib/auth-client";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -24,7 +23,7 @@ export default function SignInPage() {
 
     const formData = new FormData(e.currentTarget);
 
-    const res = await signIn.email({
+    const res = await authClient.signIn.email({
       email: formData.get("email") as string,
       password: formData.get("password") as string,
     });

@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { signUp } from "~/lib/auth-client";
+import { authClient } from "~/lib/auth-client";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function SignUpPage() {
 
     const formData = new FormData(e.currentTarget);
 
-    const res = await signUp.email({
+    const res = await authClient.signUp.email({
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       password: formData.get("password") as string,

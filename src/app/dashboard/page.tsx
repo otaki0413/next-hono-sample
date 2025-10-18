@@ -10,11 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 
-import { signOut, useSession } from "~/lib/auth-client";
+import { authClient } from "~/lib/auth-client";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { data: session, isPending } = useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   useEffect(() => {
     if (!(isPending || session?.user)) {
@@ -80,7 +80,7 @@ export default function DashboardPage() {
         <Button
           color="primary"
           fullWidth={true}
-          onClick={() => signOut()}
+          onClick={() => authClient.signOut()}
           sx={{ mt: 2 }}
           variant="contained"
         >
