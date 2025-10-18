@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Box, Button, Container } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
@@ -18,16 +18,16 @@ export default function Home() {
         }}
       >
         <Button
-          variant="contained"
           onClick={() => router.push("/signup")}
           sx={{ px: 3, py: 1 }}
+          variant="contained"
         >
           Sign Up
         </Button>
         <Button
-          variant="outlined"
           onClick={() => router.push("/signin")}
           sx={{ px: 3, py: 1 }}
+          variant="outlined"
         >
           Sign In
         </Button>

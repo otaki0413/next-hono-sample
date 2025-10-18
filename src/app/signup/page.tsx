@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   Alert,
   Box,
@@ -10,6 +8,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { signUp } from "~/lib/auth-client";
 
@@ -47,7 +47,7 @@ export default function SignUpPage() {
           justifyContent: "center",
         }}
       >
-        <Typography component="h1" variant="h4" gutterBottom={true}>
+        <Typography component="h1" gutterBottom={true} variant="h4">
           Sign Up
         </Typography>
 
@@ -59,41 +59,41 @@ export default function SignUpPage() {
 
         <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
           <TextField
-            margin="normal"
-            required={true}
-            fullWidth={true}
-            id="name"
-            name="name"
-            label="Full Name"
             autoComplete="name"
             autoFocus={true}
+            fullWidth={true}
+            id="name"
+            label="Full Name"
+            margin="normal"
+            name="name"
+            required={true}
           />
           <TextField
-            margin="normal"
-            required={true}
+            autoComplete="email"
             fullWidth={true}
             id="email"
-            name="email"
             label="Email Address"
+            margin="normal"
+            name="email"
+            required={true}
             type="email"
-            autoComplete="email"
           />
           <TextField
-            margin="normal"
-            required={true}
+            autoComplete="new-password"
             fullWidth={true}
             id="password"
-            name="password"
-            label="Password"
-            type="password"
-            autoComplete="new-password"
             inputProps={{ minLength: 8 }}
+            label="Password"
+            margin="normal"
+            name="password"
+            required={true}
+            type="password"
           />
           <Button
-            type="submit"
             fullWidth={true}
-            variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            type="submit"
+            variant="contained"
           >
             Create Account
           </Button>

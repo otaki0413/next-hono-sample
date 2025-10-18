@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -9,6 +7,8 @@ import {
   Container,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { signOut, useSession } from "~/lib/auth-client";
 
@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const { data: session, isPending } = useSession();
 
   useEffect(() => {
-    if (!isPending && !session?.user) {
+    if (!(isPending || session?.user)) {
       router.push("/signin");
     }
   }, [isPending, session, router]);
@@ -70,19 +70,19 @@ export default function DashboardPage() {
           gap: 2,
         }}
       >
-        <Typography component="h1" variant="h4" gutterBottom={true}>
+        <Typography component="h1" gutterBottom={true} variant="h4">
           Dashboard
         </Typography>
         <Typography variant="h6">Welcome, {user.name || "User"}!</Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography color="text.secondary" variant="body1">
           Email: {user.email}
         </Typography>
         <Button
-          variant="contained"
           color="primary"
           fullWidth={true}
           onClick={() => signOut()}
           sx={{ mt: 2 }}
+          variant="contained"
         >
           Sign Out
         </Button>
