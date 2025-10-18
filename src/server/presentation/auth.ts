@@ -11,8 +11,7 @@ import { auth } from "~/lib/auth";
  * - /auth/sign-up/email
  * - /auth/sign-out
  * - /auth/session
- * - /auth/callback/microsoft
  */
 export const authRouter = new Hono().on(["POST", "GET"], "/*", (c) =>
-  auth.handler(c.req.raw)
+  auth.handler(c.req.raw),
 );

@@ -1,6 +1,8 @@
 import type { Route } from "next";
+
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
+
 import { auth } from "~/lib/auth";
 
 export async function middleware(request: NextRequest) {
@@ -10,7 +12,7 @@ export async function middleware(request: NextRequest) {
 
   if (!session) {
     return NextResponse.redirect(
-      new URL("/signin" satisfies Route, request.url)
+      new URL("/signin" satisfies Route, request.url),
     );
   }
 

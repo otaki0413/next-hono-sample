@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -7,8 +9,6 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 import { signOut, useSession } from "~/lib/auth-client";
 
