@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
+// hookに引っかかるテスト
 import { signIn } from "~/lib/auth-client";
 
 export default function SignInPage() {
