@@ -1,4 +1,84 @@
 {
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["ultracite"]
+  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true // .gitignoreに指定されたファイルを無視する
+  },
+  "files": {
+    "ignoreUnknown": false, // Biome がサポートしていないファイルも診断対象とする
+    "includes": [
+      "src/**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}",
+      ".dependency-cruiser.js"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": "error", // 未使用のimportをエラーとして報告
+        "noUnusedVariables": "error" // 未使用の変数をエラーとして報告
+      },
+      "style": {
+        "useBlockStatements": "error", // if文などでブロックを省略しない
+        "useImportType": "error", // type importsを適切に使用
+        "useSelfClosingElements": "error", // 子要素がないJSX要素に自己閉じタグを使用
+        "useConsistentCurlyBraces": "error", // オブジェクトリテラルで一貫した中括弧使用
+        "useConsistentArrayType": "error", // 配列型をT[]形式に統一
+        "noImplicitBoolean": "error" // JSXでの暗黙的なboolean属性を禁止
+      },
+      "suspicious": {
+        "noExplicitAny": "error" // any型を禁止
+      },
+      "a11y": {
+        "recommended": true // アクセシビリティルールを有効化
+      }
+    },
+    "domains": {
+      "next": "recommended", // Next.js向けの推奨ルールを有効化
+      "react": "recommended" // React向けの推奨ルールを有効化
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        // import文の順序設定
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              { "type": true }, // type インポート
+              ":BLANK_LINE:",
+
+              ":URL:", // 外部URL
+              ":NODE:", // Nodeビルトインモジュール
+              ["react", "react/**"], // React のコアモジュール
+              ["next", "next/**"], // Next.js のコアモジュール
+              ":PACKAGE:", // npm パッケージ
+              ":BLANK_LINE:",
+
+              ["~/app/**", "~/components/**", "~/lib/**", "~/**"], // エイリアス経由のモジュール
+              ["../**"], // 相対パスのインポート
+              ["./**"],
+              ":BLANK_LINE:",
+
+              ["**/*.module.css", "**/*.css", "**/*.scss", "**/*.less"], // スタイル関連のインポート
+              ":BLANK_LINE:"
+            ]
+          }
+        }
+      }
+    }
+  }
 }
