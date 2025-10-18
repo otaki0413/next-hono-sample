@@ -1,9 +1,11 @@
 import type { ErrorSchema } from "./error";
 
+import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { HTTPException } from "hono/http-exception";
 import { flattenError, ZodError } from "zod";
 
+import { env } from "~/lib/env";
 import { authRouter } from "./auth";
 
 export const app = new OpenAPIHono()
@@ -34,3 +36,19 @@ app.onError((error, c) => {
   }
   return c.json<ErrorSchema>({ message: "Internal Server Error" }, 500);
 });
+
+if (env.NODE_ENV !== "production") {
+  /**
+   * OpenAPI仕様書のエンドポイント
+   * - `/api/doc`: OpenAPI仕様書(JSON)のエンドポイント
+   * - `/api/swagger`: Swagger UIのエンドポイント
+   */
+  app.doc("/doc", {
+    openapi: "3.1.0",
+    info: {
+      version: "1.0.0",
+      title: "Next Hono Sample API",
+    },
+  });
+  app.get("/swagger", swaggerUI({ url: "/api/doc" }));
+}
