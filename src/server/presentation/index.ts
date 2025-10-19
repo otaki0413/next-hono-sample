@@ -7,10 +7,12 @@ import { flattenError, ZodError } from "zod";
 
 import { env } from "~/lib/env";
 import { authRouter } from "./auth";
+import { taskRouter } from "./task";
 
 export const app = new OpenAPIHono()
   .basePath("/api")
-  .route("/auth", authRouter);
+  .route("/auth", authRouter)
+  .route("/tasks", taskRouter);
 
 export type AppType = typeof app;
 

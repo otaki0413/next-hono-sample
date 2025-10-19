@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 
-import { auth } from "~/lib/auth";
+import { type AuthType, auth } from "~/lib/auth";
 
 /**
  * BetterAuth認証ルーター
@@ -12,6 +12,8 @@ import { auth } from "~/lib/auth";
  * - /auth/sign-out
  * - /auth/session
  */
-export const authRouter = new Hono().on(["POST", "GET"], "/*", (c) =>
-  auth.handler(c.req.raw),
-);
+const app = new Hono<{ Variables: AuthType }>({ strict: false });
+
+export const authRouter = app.on(["POST", "GET"], "/*", (c) => {
+  return auth.handler(c.req.raw);
+});
