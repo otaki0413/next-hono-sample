@@ -44,9 +44,39 @@ pnpm format:fix   # フォーマット修正のみ
 ```bash
 docker-compose up -d           # PostgreSQL 起動
 npx prisma generate           # Prisma クライアント生成
-npx prisma migrate dev        # マイグレーション実行
+pnpm migrate:local            # ローカルDB マイグレーション実行
 npx prisma studio            # データベース管理 UI
 ```
+
+### マイグレーション
+
+このプロジェクトは環境ごとに異なるデータベースを使用します。
+
+#### ローカル開発環境
+```bash
+pnpm migrate:local
+```
+- `.env.local` から DATABASE_URL を読み込み
+- ローカルの Docker PostgreSQL へマイグレーション実行
+- 新しいマイグレーションの生成も可能
+
+#### 本番環境（Neon PostgreSQL）
+```bash
+./scripts/migrate-prod.sh
+```
+OR
+```bash
+pnpm migrate:prod
+```
+- `.env.production` から DATABASE_URL を読み込み
+- 本番DB への接続先を確認プロンプトで表示
+- 'yes' を入力して確認後、本番DB へマイグレーション適用
+- **⚠️ 本番環境への変更のため、十分確認してから実行してください**
+
+#### 環境ファイルの説明
+- `.env.local` - ローカル開発環境用（Docker PostgreSQL）
+- `.env.production` - 本番環境用（Neon PostgreSQL）
+- `.env.example` - テンプレートファイル
 
 ### コード品質
 ```bash

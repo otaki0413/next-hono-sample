@@ -63,9 +63,16 @@ pnpm format:fix       # Biome formatting fixes only
 ```bash
 docker-compose up -d           # Start PostgreSQL
 npx prisma generate            # Generate Prisma client
-npx prisma migrate dev         # Run migrations (creates schema in dev)
+pnpm migrate:local             # Run migrations (local dev database)
+pnpm migrate:prod              # Apply migrations to production database
 npx prisma studio              # Open Prisma Studio for database management
 ```
+
+**Migration Scripts:**
+- `pnpm migrate:local` - Uses `.env.local` to apply migrations to local Docker PostgreSQL
+- `pnpm migrate:prod` - Uses `.env.production` to apply migrations to production Neon PostgreSQL
+  - Displays connection confirmation before proceeding
+  - Requires explicit 'yes' confirmation to prevent accidental production changes
 
 ### Git Workflow
 Lefthook automatically:
